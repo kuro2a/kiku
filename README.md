@@ -8,6 +8,11 @@
 
 > *【注意】この冒頭部分は正式版になった暁には削除する予定。いつかきっと成し遂げたい。*
 
+## Screenshots
+
+![Screen Shot](/screenshot/v0.0.1-1.png "Screen Shot")
+![Screen Shot](/screenshot/v0.0.1-2.png "Screen Shot")
+
 ## How to instration
 
 ```
