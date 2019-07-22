@@ -1,0 +1,43 @@
+{
+    "system": {
+        "server": {
+            "host": "",
+            "port": 8000
+        },
+        "security": {
+            "mode": "product",
+            "user": "admin",
+            "password": "admin"
+        },
+        "session": {
+            "type": "local",
+            "timeout": 7200
+        },
+        "database": {
+            "engine": "postgresql://kiku:K1kuPassWd@localhost/kiku"
+        },
+        "document": {
+            "engine": "mongodb://localhost:27017"
+        },
+        "cookie": {
+            "max_age": 7200
+        },
+        "system_log": {
+            "log_level": "info",
+            "log_name": "system_log",
+            "file_name": "system.log",
+            "path": "./log"
+        },
+        "access_log": {
+            "log_level": "info",
+            "log_name": "access_log",
+            "file_name": "access.log",
+            "path": "./log"
+        }
+    },
+    "application": {
+        "pre_shared": [
+            "c0d7dab9-6c22-4dca-8ce9-1ee963c9e42d"
+        ]
+    }
+}

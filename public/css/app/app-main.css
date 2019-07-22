@@ -1,0 +1,11 @@
+.app-cpu-chart {
+    height: 10em;
+}
+
+.app-memory-chart {
+    height: 10em;
+}
+
+.app-jvm-chart {
+    height: 10em;
+}

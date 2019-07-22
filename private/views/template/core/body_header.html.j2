@@ -1,0 +1,88 @@
+    <!-- Logout modal. -->
+    <div id="modal_logout" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">WARNING</h2>
+            <p>You wish logout from this application?</p>
+            <p class="uk-text-center">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <a class="uk-button uk-button-primary" href="/logout">Logout</a>
+            </p>
+        </div>
+    </div>
+
+    <header>
+        <nav class="uk-navbar-container" uk-navbar>
+            <div class="uk-navbar-left">
+                <div class="uk-navbar-toggle" uk-toggle="target: #menu_contents; animation: uk-animation-slide-left" uk-navbar-toggle-icon></div>
+                <ul class="uk-navbar-nav">
+                    <a href="/" class="uk-navbar-item uk-logo">KIKU</a>
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-parent"><a href="#"><span uk-icon="settings"></span></a></li>
+                </ul>
+                <div class="uk-navbar-item">
+                    <button class="uk-button uk-button-secondary" uk-toggle="target: #modal_logout">LOGOUT</button>
+                </div>
+            </div>
+        </nav>
+
+        <div id="menu_contents" uk-offcanvas>
+            <div class="uk-offcanvas-bar">
+                <ul uk-accordion="multiple: true">
+                    <li>
+                        <a class="uk-accordion-title" href="#"><span class="uk-margin-small-right"
+                                uk-icon="thumbnails"></span>DASHBOARD</a>
+                        <div class="uk-accordion-content">
+                            <ul class="uk-list uk-list-divider">
+                                <li><a href="/system">System</a></li>
+                                <li><a href="/os">OS</a></li>
+                                <li><a href="/middleware">Middleware</a></li>
+                                <li><a href="/service">Service</a></li>
+                                <li><a href="/prototype">Prototype Page</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="uk-accordion-title" href="#"><span class="uk-margin-small-right"
+                                uk-icon="grid"></span>DESCLIPTION</a>
+                        <div class="uk-accordion-content">
+                            <ul class="uk-list uk-list-divider">
+                            {% for server in menu_servers %}
+                                <li><a href="/description/{{ server.hostname }}">{{ server.rolename }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="uk-accordion-title" href="#"><span class="uk-margin-small-right"
+                                uk-icon="file-text"></span>LOG</a>
+                        <div class="uk-accordion-content">
+                            <ul class="uk-list uk-list-divider">
+                            {% for server in menu_servers %}
+                                <li><a href="/log/{{ server.hostname }}">{{ server.rolename }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- TODO: Available admininistrator user only. -->
+
+                    <li>
+                        <a class="uk-accordion-title" href="#"><span class="uk-margin-small-right"
+                                uk-icon="cog"></span>MAINTENANCE</a>
+                        <div class="uk-accordion-content">
+                            <ul class="uk-list uk-list-divider">
+                                <li><a href="/manage/user">User Management</a></li>
+                                <li><a href="/manage/server">Server Management</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </header>
+

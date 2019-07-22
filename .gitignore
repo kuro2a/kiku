@@ -1,0 +1,10 @@
+# Prototypes, and old resource directories.
+_old/
+_prototype/
+
+# Ignored files.
+.pytest_cache
+log/*.log
+__pycache__
+data/db.sqlite
+nohup.out
