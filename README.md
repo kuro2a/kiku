@@ -6,8 +6,6 @@
 
 開発言語にPython3を、フレームワークとしてFalcon2を採用しています。 
 
-> *【注意】この冒頭部分は正式版になった暁には削除する予定。いつかきっと成し遂げたい。*
-
 ## Screenshots
 
 ![Screen Shot](/screenshot/v0.0.1-1.png "Screen Shot")
