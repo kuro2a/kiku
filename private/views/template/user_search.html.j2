@@ -3,6 +3,7 @@
 
 <head>
     {% include "core/head_common.html.j2" %}
+    <script type="text/javascript" src="/public/js/app/app-user_search.js"></script>
 </head>
 
 <body>
@@ -14,10 +15,11 @@
             <button class="uk-modal-close-default" type="button" uk-close></button>
             <h2 class="uk-modal-title">WARNING</h2>
             <p>Do you want to delete this user?</p>
-            <p class="uk-text-center ">
+            <form method="POST" action="/manage/user/delete" class="uk-flex uk-flex-center">
+                <input id="form-input-delete-user-id" name="form-input-delete-user-id" type="hidden" value="">
                 <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                <button id="button_delete_user" class="uk-button uk-button-danger" type="button">Delete</button>
-            </p>
+                <button id="button_delete_user" class="uk-button uk-button-danger" type="submit">Delete</button>
+            </form>
         </div>
     </div>
 
@@ -36,7 +38,7 @@
                     <div class="uk-padding-remove-vertical uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-child-width-1-6@xl uk-grid-small" uk-grid>
                         <div class="uk-width-1-1">
                             <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-remove-bottom">
-                                <form method="POST" class="uk-flex-center uk-form-horizontal uk-width-1-1 uk-grid-large" uk-grid>
+                                <form method="POST" action="/manage/user" class="uk-flex-center uk-form-horizontal uk-width-1-1 uk-grid-large" uk-grid>
 
                                     <div class="uk-margin-small-top uk-width-1-2@m">
                                         <label class="uk-form-label" for="form-input-account">Account</label>
@@ -105,7 +107,7 @@
                                             <td>{{ user.username }}</td>
                                             <td>{{ user.nickname }}</td>
                                             <td>{{ user.mail }}</td>
-                                            <td><button class="uk-button uk-button-danger uk-margin-small-right" uk-toggle="target: #modal_delete_user">delete</button></td>
+                                            <td><button class="uk-button uk-button-danger uk-margin-small-right" uk-toggle="target: #modal_delete_user" onclick="setTargetUserRow({{ user.id }})">delete</button></td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
