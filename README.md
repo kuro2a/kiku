@@ -18,7 +18,7 @@ $ # For server
 $ pip3 install falcon jinja2 bcrypt pymongo tinydb redis pytest sqlalchemy psycopg2 pymysql
 $ python3 main.py
 $ # For collector 
-$ pip3 insatall paramiko bcrypt pymongo sqlalchemy psycopg2 pymysql pytest
+$ pip3 install paramiko bcrypt pymongo sqlalchemy psycopg2 pymysql pytest
 $ ssh-keygen -t rsa -f ~/.ssh/id_rsa_username
 $ scp ~/.ssh/id_rsa_username.pub username@server:~/.ssh/
 $ ssh username@server sh -c 'cat ~/.ssh/id_rsa_username.pub >> authorized_keys' 
