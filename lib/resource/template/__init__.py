@@ -11,3 +11,4 @@ from lib.resource.template.BetaDummyResource import *
 from lib.resource.template.UserManagementSearchResource import *
 from lib.resource.template.UserManagementAddResource import *
 from lib.resource.template.UserManagementDeleteResource import *
+from lib.resource.template.ServerManagementSearchResource import *
