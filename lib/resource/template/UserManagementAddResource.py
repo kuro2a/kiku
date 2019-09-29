@@ -45,7 +45,7 @@ class UserManagementAddResource(BaseHtmlTemplateResource):
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         index = {
-            'title': 'Search User',
+            'title': 'Manage User',
             'users': [],
             'roles': get_role(),
             'input_account': '',
