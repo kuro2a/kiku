@@ -27,7 +27,7 @@ class UserManagementSearchResource(BaseHtmlTemplateResource):
     def on_get(self, req, resp):
         resp.status = falcon.HTTP_200
         index = {
-            'title': 'Search User',
+            'title': 'Manage User',
             'users': [],
             'roles': get_role(),
             'input_account': '',
@@ -40,7 +40,7 @@ class UserManagementSearchResource(BaseHtmlTemplateResource):
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         index = {
-            'title': 'Search User',
+            'title': 'Manage User',
             'users': [],
             'roles': get_role(),
             'input_account': '',

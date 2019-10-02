@@ -1,19 +1,27 @@
 # KIKU - Light weight metrics monitoring tool -
 
-## 開発者メモ
+## 開発者メモ(日本語/Japanese)
 
 個人で運用しているシステムインフラの監視を行うにあたり、ZABBIXやELKスタック、その他ソリューションを導入/構築することが面倒だったため、新規で作成したものです。今後、ミドルウェアやアプリケーション自体も監視対象に入れることを予定しています。
 
 開発言語にPython3を、フレームワークとしてFalcon2を採用しています。 
+
+
+## Note
+
+Zabbix, ELK stacks and other solutions are more difficult to running minimum service infrastructure such a SOHO environment.
+So I made this product to monitoring for my systems. In the future, add many functions to monitor for many applications. 
+
+This product is builded by Python3, and powered by falcon2 API framework.
 
 ## Screenshots
 
 ![Screen Shot](/screenshot/v0.0.1-1.png "Screen Shot")
 ![Screen Shot](/screenshot/v0.0.1-2.png "Screen Shot")
 
-## How to instration
+## How to install
 
-```
+```bash
 $ # For server
 $ pip3 install falcon jinja2 bcrypt pymongo tinydb redis pytest sqlalchemy psycopg2 pymysql
 $ python3 main.py

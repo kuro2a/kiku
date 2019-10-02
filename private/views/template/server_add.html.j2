@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    {% include "core/head_common.html.j2" %}
+    <link rel="stylesheet" type="text/css" media="screen" href="/public/css/app/app-server_add.css">
+</head>
+
+<body>
+    {% include "core/body_header.html.j2" %}
+
+    <main class="uk-section uk-section-default uk-section-xsmall" uk-height-viewport="expand:true;">
+        <div class="uk-container uk-container-expand">
+            <div class="uk-grid-collapse uk-child-width-expand" uk-grid>
+                <div id="main_contents">
+                    <div class="uk-padding-small uk-padding-remove-vertical">
+                        <h2 class="uk-heading-bullet">ADD SERVER</h2>
+                    </div>
+
+                    <div class="uk-flex uk-flex-left uk-margin-small-bottom">
+                        <a href="/manage/server" class="uk-button uk-button-default">back</a>
+                    </div>
+
+                    <div class="uk-padding-remove-vertical uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-6@l uk-child-width-1-6@xl uk-flex-center uk-grid-small" uk-grid>
+                        <div class="uk-width-2-3@xl">
+                            <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-padding-remove-bottom">
+                                {% if error_message|length > 0  %}
+                                <div class="uk-margin">
+                                    <span class="uk-text-middle app-warning-text">{{ error_message }}</span>
+                                </div>
+                                {% endif %}
+                                <form method="POST" class="uk-flex-center uk-form-horizontal uk-width-1-1 uk-grid-large" uk-grid>
+                                    <legend class="uk-legend">BASIC INFORMATION</legend>
+                                    <div class="uk-margin-small-top uk-width-1-1@m">
+                                        <label class="uk-form-label" for="form-input-ip">IP</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-ip" name="form-input-ip" type="text" maxlength="15" placeholder="Input IP address" value="{{ input_ip }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-1@m">
+                                        <label class="uk-form-label" for="form-input-hostname">Hostname(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-hostname" name="form-input-hostname" type="text" maxlength="30" placeholder="Input hostname" value="{{ input_hostname }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-rolename">Rolename(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-rolename" name="form-input-rolename" type="text" maxlength="30" placeholder="Input rolename" value="{{ input_rolename }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-type-cd">Type Code(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-type-cd" name="form-input-type-cd" type="text" maxlength="15" placeholder="Input type code" value="{{ input_type_cd }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-group-cd">Group Code(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-group-cd" name="form-input-group-cd" type="text" maxlength="15" placeholder="Input group code" value="{{ input_group_cd }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-region">Region(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-region" name="form-input-region" type="text" maxlength="15" placeholder="Input region" value="{{ input_region }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-1@m">
+                                        <label class="uk-form-label" for="form-input-zone">Zone(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-zone" name="form-input-zone" type="text" maxlength="15" placeholder="Input zone" value="{{ input_zone }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-1@m">
+                                        <label class="uk-form-label" for="form-input-description">Description(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-description" name="form-input-description" type="text" maxlength="15" placeholder="Input description" value="{{ input_description }}">
+                                        </div>
+                                    </div>
+
+                                    <legend class="uk-legend">SPECIFICATION</legend>
+
+                                    <div class="uk-margin-small-top uk-width-1-1@m">
+                                        <label class="uk-form-label" for="form-select-os-id">OS Type(*)</label>
+                                        <div class="uk-form-controls">
+                                            <select class="uk-select" id="form-select-os-id" name="form-select-os-id">
+                                                {% for os in oses %}
+                                                <option value="{{ os.id }}">{{ os.os_type }} {{ os.os_version }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-cpu-core">CPU Cores(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-cpu-core" name="form-input-cpu-core" type="number" placeholder="Input CPU cores" value="{{ input_cpu_core }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-memory">Memory(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-memory" name="form-input-memory" type="number" placeholder="Input memory size" value="{{ input_memory }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-swap">Swap(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-swap" name="form-input-swap" type="number" placeholder="Input swap size" value="{{ input_swap }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small-top uk-width-1-2@m">
+                                        <label class="uk-form-label" for="form-input-system-storage">System Storage(*)</label>
+                                        <div class="uk-form-controls">
+                                            <input class="uk-input" id="form-input-system-storage" name="form-input-system-storage" type="number" placeholder="Input system storage" value="{{ input_system_storage }}" required>
+                                        </div>
+                                    </div>
+
+                                    <legend class="uk-legend">STORAGE INFORMATION</legend>
+
+                                    <div class="uk-margin">
+                                        <input class="uk-button uk-button-primary uk-button-large" type="submit" value="submit">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include "core/body_footer.html.j2" %}
+
+</body>
+
+</html>

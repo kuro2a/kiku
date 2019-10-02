@@ -13,3 +13,4 @@ class Message(object):
     RESPONSE_DATABASE_COMMIT_ERROR = 'Database commit error.'
     RESPONSE_DATABASE_DUPLICATE_COMMIT_ERROR = 'Database duplicate commit error.'
     RESPONSE_USER_CREATED = 'User created.'
+    RESPONSE_SERVER_CREATED = 'Server created.'

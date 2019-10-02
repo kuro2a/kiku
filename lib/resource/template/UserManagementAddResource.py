@@ -45,7 +45,7 @@ class UserManagementAddResource(BaseHtmlTemplateResource):
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         index = {
-            'title': 'Search User',
+            'title': 'Manage User',
             'users': [],
             'roles': get_role(),
             'input_account': '',
@@ -86,9 +86,11 @@ class UserManagementAddResource(BaseHtmlTemplateResource):
         except IntegrityError as e:
             self.logger.warning(e)
             index['error_message'] = Message.RESPONSE_DATABASE_DUPLICATE_COMMIT_ERROR
+            session.rollback()
         except Exception as e:
             self.logger.error(e)
             resp.status = falcon.HTTP_500
+            session.rollback()
             raise falcon.HTTP_INTERNAL_SERVER_ERROR
         finally:
             session.close()
