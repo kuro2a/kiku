@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from lib.resource.template import SystemResource, OsResource, MiddlewareResource, LogResource, DescriptionResource, UserManagementSearchResource, UserManagementAddResource, UserManagementDeleteResource, ServerManagementSearchResource, BetaDummyResource
+from lib.resource.template import SystemResource, OsResource, MiddlewareResource, LogResource, DescriptionResource, UserManagementSearchResource, UserManagementAddResource, UserManagementDeleteResource, ServerManagementSearchResource, ServerManagementAddResource, ServerManagementDeleteResource, BetaDummyResource
 from lib.resource.static import PrototypeResource
 from lib.const import Version
 
@@ -20,5 +20,7 @@ class PageRoute(object):
         routes.append(['/manage/user/add', UserManagementAddResource()])
         routes.append(['/manage/user/delete', UserManagementDeleteResource()])
         routes.append(['/manage/server', ServerManagementSearchResource()])
+        routes.append(['/manage/server/add', ServerManagementAddResource()])
+        routes.append(['/manage/server/delete', ServerManagementDeleteResource()])
 
         return routes

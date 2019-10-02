@@ -12,3 +12,5 @@ from lib.resource.template.UserManagementSearchResource import *
 from lib.resource.template.UserManagementAddResource import *
 from lib.resource.template.UserManagementDeleteResource import *
 from lib.resource.template.ServerManagementSearchResource import *
+from lib.resource.template.ServerManagementAddResource import *
+from lib.resource.template.ServerManagementDeleteResource import *

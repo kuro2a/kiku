@@ -86,9 +86,11 @@ class UserManagementAddResource(BaseHtmlTemplateResource):
         except IntegrityError as e:
             self.logger.warning(e)
             index['error_message'] = Message.RESPONSE_DATABASE_DUPLICATE_COMMIT_ERROR
+            session.rollback()
         except Exception as e:
             self.logger.error(e)
             resp.status = falcon.HTTP_500
+            session.rollback()
             raise falcon.HTTP_INTERNAL_SERVER_ERROR
         finally:
             session.close()
