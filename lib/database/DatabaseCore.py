@@ -9,8 +9,8 @@ from lib.utility import SystemUtility
 
 config = dict(SystemUtility.get_config())  # Avoid pylint error.
 
-engine = create_engine(config[ConfigKey.CONF_KEY_SYSTEM][ConfigKey.CONF_KEY_DATABASE]
-                       [ConfigKey.CONF_KEY_DATABASE_ENGINE], encoding="utf-8", echo=True)
+engine = create_engine(config[ConfigKey.CONF_KEY_SYSTEM][ConfigKey.CONF_KEY_SYSTEM_DATABASE]
+                       [ConfigKey.CONF_KEY_SYSTEM_DATABASE_ENGINE], encoding="utf-8", echo=True)
 
 Base = declarative_base()
 Base.metadata.create_all(engine)

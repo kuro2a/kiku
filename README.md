@@ -64,6 +64,13 @@ $ crontab -e
   - Example: `mssql+pymssql://kiku:K1kuPassWd@localhost:1433/kiku`
 
 
+#### For session database(KVS).
+- Local
+  - Example: `local://localhost`
+- Redis
+  - Example: `redis://localhost:6379/0`
+
+
 #### For log database(DocumentDB).
 - TinyDB
   - Example: `tinydb:///data/document.json`

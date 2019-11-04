@@ -15,6 +15,7 @@ class Const(object):
     SESSION_TYPE_LOCAL = 'local'
     SESSION_TYPE_REDIS = 'redis'
     SESSION_TYPE_MEMCACHED = 'memcached'
+    SESSION_POOL_SIZE = 100
     DATABASE_TYPE_SQLITE = 'sqlite'
     DATABASE_TYPE_POSTGRESQL = 'postgresql'
     DATABASE_TYPE_MYSQL = 'mysql'
