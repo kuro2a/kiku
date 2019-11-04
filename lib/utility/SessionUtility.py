@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
+from urllib.parse import urlparse
+
 from lib.const import Const, ConfigKey, Message
-from lib.session import LocalSessionService
+from lib.session import LocalSessionService, RedisSessionService
 
 
 class SessionUtility(object):
@@ -14,12 +16,11 @@ class SessionUtility(object):
             if config is None:
                 raise Exception(Message.EXCEPTION_UNKNOWN_OPTION)
             session_config = config[ConfigKey.CONF_KEY_SYSTEM_SESSION]
-            session_type = session_config[ConfigKey.CONF_KEY_SYSTEM_SESSION_TYPE]
+            session_type = urlparse(session_config[ConfigKey.CONF_KEY_SYSTEM_SESSION_ENGINE]).scheme
             if session_type == Const.SESSION_TYPE_LOCAL:
                 session_service = LocalSessionService(session_config)
             elif session_type == Const.SESSION_TYPE_REDIS:
-                # TODO: Write Redis external session mode.
-                pass
+                session_service = RedisSessionService(session_config)
             elif session_type == Const.SESSION_TYPE_MEMCACHED:
                 # TODO: Write Memcached external session mode.
                 pass

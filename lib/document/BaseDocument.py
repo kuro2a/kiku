@@ -9,7 +9,7 @@ from lib.const import ConfigKey
 class BaseDocument(object):
     def __init__(self, config):
         self.logger = lib.utility.SystemUtility.get_system_log()
-        self.engine = urlparse(config[ConfigKey.CONF_KEY_DOCUMENT_ENGINE])
+        self.engine = urlparse(config[ConfigKey.CONF_KEY_SYSTEM_DOCUMENT_ENGINE])
         self.dbType = None
         self.db = None
 
