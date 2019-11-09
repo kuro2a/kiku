@@ -116,7 +116,12 @@ $ crontab -e
 |meta.timestamp|string|The timestamp that service response.||
 |data|object|Response data.||
 
+## API URLs
 
+|type|path|params|description|notes|
+|---|---|---|---|---|
+|Chart|/api/v1/os_latest/{hostname}/{resource}|{hostname}:HOST<br> {resource}:cpu,memory,storage,swap,diskio|Latest values of computer resource.||
+|Chart|/api/v1/os/{hostname}/{resource}/{time_from}/{time_to}|{hostname}:HOST<br> {resource}:cpu,memory,storage,swap,diskio<br>{time_from}:YYYYMMDDhhmm<br>{time_to}:YYYYMMDDhhmm|Timeline charts values of computer resource.||
 
 # Libraries
 
