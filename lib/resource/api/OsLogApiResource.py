@@ -29,9 +29,17 @@ class OsLogApiResource(BaseJsonApiResource):
             body['data']['key'] = ['swapped']
             self.logger.debug(str(data))
         elif resource == 'storage':
-            data = doc_db.searchStorageLog(hostname, 'SYSTEM', from_date, to_date)
-            body['data']['data'] = data
-            body['data']['key'] = ['ratio']
+            data = doc_db.searchStorageLog(hostname, from_date, to_date)
+            index = {}
+            key = {}
+            for i in data:
+                try:
+                    index[i['timestamp']][i['storage']['mounted_path']] = i['storage']['ratio']
+                except KeyError:
+                    index[i['timestamp']] = {i['storage']['mounted_path']: i['storage']['ratio']}
+                key[i['storage']['mounted_path']] = True
+            body['data']['data'] = list(map(lambda x: {'timestamp': x[0], **x[1]}, index.items()))
+            body['data']['key'] = list(key.keys())
             self.logger.debug(str(data))
         elif resource == 'diskio':
             data = doc_db.searchIoLog(hostname, from_date, to_date)

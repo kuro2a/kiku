@@ -67,10 +67,11 @@ def insert_os_log(session, document, server, now):
                           100.0 * res["cache"] / spec.memory,
                           100.0 * res["swpd"] / spec.swap,
                           res["si"], res["so"], res["bi"], res["bo"])
-        s_in, s_out, s_err = client.exec_command('df -k /')
-        res = s_out.read().decode('utf8').split("\n")[-2].split()
-        document.addStorageLog(now, server.hostname, server.type_cd,
-                               server.group_cd, 'SYSTEM', 100.0 * int(res[2]) / int(res[1]))
+        s_in, s_out, s_err = client.exec_command('df -Tl -x tmpfs -x squashfs -x devtmpfs')
+        res = s_out.read().decode('utf8').split("\n")[:-1]
+        for i in range(1, len(res)):
+            row = dict(map(lambda x: (x[0], x[i]), zip(*map(str.split, res))))
+            document.addDfLog(now, server.hostname, server.type_cd, server.group_cd, row['Filesystem'], row['Type'], int(row['1K-blocks']), int(row['Used']), int(row['Available']), float(row['Use%'].replace('%','')), row['Mounted'], option=None)
     except Exception as e:
         raise e
     finally:
