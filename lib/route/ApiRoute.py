@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from lib.resource.api import VersionApiResource, OsLogApiResource, OsMultipleLogApiResource, OsLatestLogApiResource, ServerInfoApiResource, ServerSpecificationApiResource, ServerApplicationApiResource, MasterInfoApiResource
+from lib.resource.api import VersionApiResource, OsLogApiResource, OsMultipleLogApiResource, OsLatestLogApiResource, ServerInfoApiResource, ServerSpecificationApiResource, ServerApplicationApiResource, MasterInfoApiResource, KikuServiceStatusApiResource
 from lib.const import Version
 
 
@@ -45,5 +45,10 @@ class ApiRoute(object):
                                  Version.VERSION_1,
                                  'master',
                                  '{target}']), MasterInfoApiResource()])
+        routes.append(['/'.join(['/api',
+                                 Version.VERSION_1,
+                                 'kiku',
+                                 'service_status',
+                                 '{service_name}']), KikuServiceStatusApiResource()])
 
         return routes

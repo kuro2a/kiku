@@ -14,6 +14,13 @@ const CHART_TYPE = {
     DONUT: 5,
     BAR: 6
 };
+const HEADING_SIZE = {
+    SMALL: 1,
+    MEDIUM: 2,
+    LARGE: 3,
+    XLARGE: 4,
+    XXLARGE: 5
+};
 
 /**
  * Return card size class string for UIKit.
@@ -79,21 +86,52 @@ function getTable(header, data) {
  * @param {object} data A JSON object list. 
  */
 function getSimpleTexts(header, data, option) {
-    let top, tLabel, tValue, unit = '';
+    let top, tLabel, tValue, unit = '', labelFlag, tLabelClass, tValueClass;
     top = document.createElement("div");
 
     if(option != undefined && option['unit'] != undefined){
-        unit = option['unit']
+        unit = option['unit'];
+    }
+    labelFlag = true;
+    if(option != undefined && option['label'] != undefined){
+        if(option['label'] == false){
+            labelFlag = false;
+        }
+    }
+    tLabelClass = 'uk-text-small';
+    tValueClass = 'uk-text-large';
+    if(option != undefined && option['heading_size'] != undefined){
+        switch (option['heading_size']) {
+            case HEADING_SIZE.SMALL:
+                tValueClass = 'uk-heading-small';
+                break;
+            case HEADING_SIZE.MEDIUM:
+                tValueClass = 'uk-heading-medium';
+                break;
+            case HEADING_SIZE.LARGE:
+                tValueClass = 'uk-heading-large';
+                break;
+            case HEADING_SIZE.XLARGE:
+                tValueClass = 'uk-heading-xlarge';
+                break;
+            case HEADING_SIZE.XXLARGE:
+                tValueClass = 'uk-heading-2xlarge';
+                break;
+            default:
+                break;
+        }
     }
 
     for(let i of header){
-        tLabel = document.createElement("div");
-        tLabel.classList.add("uk-text-small", "uk-text-center");
-        tLabel.innerText = `${i} ${unit}`;
+        if (labelFlag) {
+            tLabel = document.createElement("div");
+            tLabel.classList.add(tLabelClass, "uk-text-center");
+            tLabel.innerText = `${i} ${unit}`;
+            top.appendChild(tLabel);
+        }
         tValue = document.createElement("div");
-        tValue.classList.add("uk-text-large", "uk-text-bold", "uk-text-center");
+        tValue.classList.add(tValueClass, "uk-text-bold", "uk-text-center");
         tValue.innerText = Number(data[0][i]).toLocaleString();
-        top.appendChild(tLabel);
         top.appendChild(tValue);
     }
 

@@ -7,19 +7,21 @@ var app = function() {
     let from_datetime = now.subtract('3', 'hour').format('YYYYMMDDHHmmss');
     let interval_update_target = [];
 
-    card = new KikuCard('test1', 'NEWS', {});
+    card = new KikuCard('card_content_1', 'NEWS', {});
     append(main_grid, card.createComponent(CARD_SIZE.LL));
 
-    card = new KikuCard('test2', 'USERS', {});
+    card = new KikuCard('card_content_2', 'USERS', {});
     append(main_grid, card.createComponent(CARD_SIZE.S));
+    card.setSimpleTextContents(`/api/v1/kiku/service_status/registered_user`, {'unit': '', 'label': false, 'heading_size': HEADING_SIZE.LARGE});
 
-    card = new KikuCard('test3', 'NODES', {});
+    card = new KikuCard('card_content_3', 'NODES', {});
     append(main_grid, card.createComponent(CARD_SIZE.S));
+    card.setSimpleTextContents(`/api/v1/kiku/service_status/registered_server`, {'unit': '', 'label': false, 'heading_size': HEADING_SIZE.LARGE});
 
-    let cpu_hist_card = new KikuCard('test10', 'CPU HISTORY', {});
+    let cpu_hist_card = new KikuCard('card_content_10', 'CPU HISTORY', {});
     append(main_grid, cpu_hist_card.createComponent(CARD_SIZE.M));
 
-    let mem_hist_card = new KikuCard('test11', 'MEMORY HISTORY', {});
+    let mem_hist_card = new KikuCard('card_content_11', 'MEMORY HISTORY', {});
     append(main_grid, mem_hist_card.createComponent(CARD_SIZE.M));
 
     axios.get('/api/v1/master/server')
