@@ -9,3 +9,5 @@ from lib.database.Storage import *
 from lib.database.Os import *
 from lib.database.Application import *
 from lib.database.Role import *
+from lib.database.ExtraDevice import *
+from lib.database.NetworkDevice import *

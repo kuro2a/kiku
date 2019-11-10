@@ -8,7 +8,7 @@ import pytest
 
 sys.path.append( str(pathlib.Path(__file__).resolve().parent) + '/../' )
 
-from lib.database import Base, engine, Session, Role, User, Server, Specification, NicType, Os, Application
+from lib.database import Base, engine, Session, Role, User, Server, Specification, NicType, Os, Application, Storage, NetworkDevice, ExtraDevice
 from lib.const import ConfigKey
 from lib.utility import SystemUtility, DocumentUtility
 
@@ -113,22 +113,18 @@ def test_create_master(init_db):
                 'cpu_core' : 4,
                 'memory' : 32*1024**2,
                 'swap' : 8*1024**2,
-                'system_storage' : 500*1024**2,
-                'data_storage_1' : None,
-                'data_storage_2' : None,
-                'data_storage_3' : None,
-                'data_storage_4' : None,
-                'nic_type_1' : None,
-                'nic_type_2' : None,
-                'nic_type_3' : None,
-                'nic_type_4' : None,
-                'ext_device_1' : None,
-                'ext_device_2' : None,
-                'ext_device_3' : None,
-                'ext_device_4' : None
+                'system_storage' : 500*1024**2
             },
             'app':[
                 {'name':'Hypervisor', 'desc':'KVM', 'note':''}
+            ],
+            'storage': [
+                {'device_name': '/dev/mapper/ubuntu--vg-root', 'device_type': 'ext4', 'size': 489703416, 'mount_path': '/'}
+            ],
+            'network_device': [
+                {'device_name': 'eno1', 'type_name': '1000BASE-T'}
+            ],
+            'extra_device': [
             ]
         },
         {
@@ -147,25 +143,22 @@ def test_create_master(init_db):
                 'cpu_core' : 2,
                 'memory' : 8*1024**2,
                 'swap' : 2*1024**2,
-                'system_storage' : 50*1024**2,
-                'data_storage_1' : None,
-                'data_storage_2' : None,
-                'data_storage_3' : None,
-                'data_storage_4' : None,
-                'nic_type_1' : None,
-                'nic_type_2' : None,
-                'nic_type_3' : None,
-                'nic_type_4' : None,
-                'ext_device_1' : None,
-                'ext_device_2' : None,
-                'ext_device_3' : None,
-                'ext_device_4' : None
+                'system_storage' : 50*1024**2
             },
             'app':[
                 {'name':'Container', 'desc':'Docker', 'note':''},
                 {'name':'Database', 'desc':'PostgreSQL', 'note':''},
                 {'name':'Database', 'desc':'MongoDB', 'note':''},
                 {'name':'Database', 'desc':'Elasticsearch', 'note':''}
+            ],
+            'storage': [
+                {'device_name': '/dev/vda2', 'device_type': 'ext4', 'size': 30829476, 'mount_path': '/'},
+                {'device_name': '/dev/vdb1', 'device_type': 'ext4', 'size': 308586284, 'mount_path': '/var/data'}
+            ],
+            'network_device': [
+                {'device_name': 'ens3', 'type_name': '100BASE-T'}
+            ],
+            'extra_device': [
             ]
         }, 
         {
@@ -184,22 +177,18 @@ def test_create_master(init_db):
                 'cpu_core' : 1,
                 'memory' : 2*1024**2,
                 'swap' : 2*1024**2,
-                'system_storage' : 30*1024**2,
-                'data_storage_1' : None,
-                'data_storage_2' : None,
-                'data_storage_3' : None,
-                'data_storage_4' : None,
-                'nic_type_1' : None,
-                'nic_type_2' : None,
-                'nic_type_3' : None,
-                'nic_type_4' : None,
-                'ext_device_1' : None,
-                'ext_device_2' : None,
-                'ext_device_3' : None,
-                'ext_device_4' : None
+                'system_storage' : 30*1024**2
             },
             'app':[
                 {'name':'Proxy', 'desc':'nginx', 'note':''}
+            ],
+            'storage': [
+                {'device_name': '/dev/vda2', 'device_type': 'ext4', 'size': 30829476, 'mount_path': '/'}
+            ],
+            'network_device': [
+                {'device_name': 'ens3', 'type_name': '100BASE-T'}
+            ],
+            'extra_device': [
             ]
         }, 
         {
@@ -219,21 +208,18 @@ def test_create_master(init_db):
                 'memory' : 2*1024**2,
                 'swap' : 2*1024**2,
                 'system_storage' : 30*1024**2,
-                'data_storage_1' : None,
-                'data_storage_2' : None,
-                'data_storage_3' : None,
-                'data_storage_4' : None,
-                'nic_type_1' : None,
-                'nic_type_2' : None,
-                'nic_type_3' : None,
-                'nic_type_4' : None,
-                'ext_device_1' : None,
-                'ext_device_2' : None,
-                'ext_device_3' : None,
-                'ext_device_4' : None
             },
             'app':[
                 {'name':'nfs', 'desc':'samba', 'note':''}
+            ],
+            'storage': [
+                {'device_name': '/dev/vda2', 'device_type': 'ext4', 'size': 30829476, 'mount_path': '/'},
+                {'device_name': '/dev/vdb1', 'device_type': 'ext4', 'size': 1055839668, 'mount_path': '/var/data'}
+            ],
+            'network_device': [
+                {'device_name': 'ens3', 'type_name': '100BASE-T'}
+            ],
+            'extra_device': [
             ]
         }, 
         {
@@ -252,22 +238,18 @@ def test_create_master(init_db):
                 'cpu_core' : 1,
                 'memory' : 6*1024**2,
                 'swap' : 2*1024**2,
-                'system_storage' : 30*1024**2,
-                'data_storage_1' : None,
-                'data_storage_2' : None,
-                'data_storage_3' : None,
-                'data_storage_4' : None,
-                'nic_type_1' : None,
-                'nic_type_2' : None,
-                'nic_type_3' : None,
-                'nic_type_4' : None,
-                'ext_device_1' : None,
-                'ext_device_2' : None,
-                'ext_device_3' : None,
-                'ext_device_4' : None
+                'system_storage' : 30*1024**2
             },
             'app':[
                 {'name':'Application', 'desc':'Gitlab', 'note':''}
+            ],
+            'storage': [
+                {'device_name': '/dev/vda2', 'device_type': 'ext4', 'size': 30829476, 'mount_path': '/'}
+            ],
+            'network_device': [
+                {'device_name': 'ens3', 'type_name': '100BASE-T'}
+            ],
+            'extra_device': [
             ]
         }
     ]
@@ -372,11 +354,21 @@ def test_create_master(init_db):
             session.add(server)
             t_server = session.query(Server).filter_by(hostname=common['hostname']).first()
             t_os = session.query(Os).filter_by(os_version=spec['os_id']).first()
-            spec = Specification(server_id=t_server.id, os_id=t_os.id, cpu_core=spec['cpu_core'], memory=spec['memory'], swap=spec['swap'], system_storage=spec['system_storage'], data_storage_1=spec['data_storage_1'], data_storage_2=spec['data_storage_2'], data_storage_3=spec['data_storage_3'], data_storage_4=spec['data_storage_4'], nic_type_1=spec['nic_type_1'], nic_type_2=spec['nic_type_2'], nic_type_3=spec['nic_type_3'], nic_type_4=spec['nic_type_4'], ext_device_1=spec['ext_device_1'], ext_device_2=spec['ext_device_2'], ext_device_3=spec['ext_device_3'], ext_device_4=spec['ext_device_4'])
+            spec = Specification(server_id=t_server.id, os_id=t_os.id, cpu_core=spec['cpu_core'], memory=spec['memory'], swap=spec['swap'], system_storage=spec['system_storage'])
             session.add(spec)
             for app in sv["app"]:
                 t_app = Application(server_id=t_server.id, application_name=app['name'], application_desc=app['desc'], note=app['note'])
                 session.add(t_app)
+            for storage in sv["storage"]:
+                t_storage = Storage(server_id=t_server.id, device_name=storage['device_name'], device_type=storage['device_type'], size=storage['size'], mount_path=storage['mount_path'])
+                session.add(t_storage)
+            for network_device in sv["network_device"]:
+                t_nic = session.query(NicType).filter_by(type_name=network_device['type_name']).first()
+                t_network_device = NetworkDevice(server_id=t_server.id, nic_type=t_nic.id, device_name=network_device['device_name'])
+                session.add(t_network_device)
+            for extra_device in sv["extra_device"]:
+                t_extra_device = ExtraDevice(server_id=t_server.id, device_name=extra_device['device_name'])
+                session.add(t_extra_device)
             session.commit()
     except:
         session.rollback()

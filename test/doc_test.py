@@ -31,3 +31,27 @@ def test_insert_vmstat_log(init_document):
     print(res)
 
     assert True
+
+def test_insert_df_log(init_document):
+    doc = DocumentUtility.get_document()
+    now = datetime.now()
+    doc.addDfLog(now-timedelta(minutes=5), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now-timedelta(minutes=4), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now-timedelta(minutes=3), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now-timedelta(minutes=2), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now-timedelta(minutes=1), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now, 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 78000, 22000, 78.0, '/')
+    doc.addDfLog(now-timedelta(minutes=5), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    doc.addDfLog(now-timedelta(minutes=4), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    doc.addDfLog(now-timedelta(minutes=3), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    doc.addDfLog(now-timedelta(minutes=2), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    doc.addDfLog(now-timedelta(minutes=1), 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    doc.addDfLog(now, 'iris', 'web/ap', 'front', '/dev/sda1', 'ext4', 100000, 79000, 21000, 79.0, '/var/data')
+    res = doc.searchTargetStorageLog("iris", '/', now-timedelta(minutes=3), now)
+    print(res)
+    res = doc.searchStorageLog("iris", now-timedelta(minutes=3), now)
+    print(res)
+
+    assert True
+
+

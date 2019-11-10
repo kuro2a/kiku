@@ -29,8 +29,8 @@ class OsLatestLogApiResource(BaseJsonApiResource):
             body['data']['key'] = ['swapped']
             self.logger.debug(str(data))
         elif resource == 'storage':
-            data = doc_db.latestStorageLog(hostname, 'SYSTEM')
-            body['data']['data'] = data
+            data = doc_db.latestTargetStorageLog(hostname, '/')
+            body['data']['data'] = list(map(lambda x: {'timestamp': x['timestamp'], 'ratio': x['storage']['ratio']}, data))
             body['data']['key'] = ['ratio']
             self.logger.debug(str(data))
         elif resource == 'diskio':

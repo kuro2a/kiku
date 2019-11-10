@@ -46,6 +46,26 @@ class MongoDbDocument(BaseDocument):
                 'option': option
             })
 
+    def addDfLog(self, timestamp, hostname, type, group, filesystem, fs_type, blocks, used, available, ratio, mounted_path, option=None):
+        collection = self.db.DfLog
+        collection.insert_one(
+            {
+                'timestamp': timestamp,
+                'hostname': hostname,
+                'type': type,
+                'group': group,
+                'storage': {
+                    'filesystem': filesystem,
+                    'type': fs_type,
+                    '1k_blocks': blocks,
+                    'used': used,
+                    'available': available,
+                    'ratio': ratio,
+                    'mounted_path': mounted_path
+                },
+                'option': option
+            })
+
     def searchCpuLog(self, hostname, time_from, time_to):
         collection = self.db.VmstatLog
         query = {
@@ -154,19 +174,29 @@ class MongoDbDocument(BaseDocument):
                 'option': option
             })
 
-    def searchStorageLog(self, hostname, device_name, time_from, time_to):
-        collection = self.db.StorageLog
+    def searchTargetStorageLog(self, hostname, mounted_path, time_from, time_to):
+        collection = self.db.DfLog
         query = {
             '$and': [
                 {'hostname': hostname},
-                {'device_name': device_name},
+                {'storage.mounted_path': mounted_path},
                 {'timestamp': {'$gt': time_from, '$lt': time_to}}
             ]
         }
-        return list(collection.find(query, {'_id': False, 'timestamp': True, 'ratio': True}))
+        return list(collection.find(query, {'_id': False, 'timestamp': True, 'storage.ratio': True}))
 
-    def searchMultipleStorageLog(self, hostnames, device_name, time_from, time_to):
-        collection = self.db.StorageLog
+    def searchStorageLog(self, hostname, time_from, time_to):
+        collection = self.db.DfLog
+        query = {
+            '$and': [
+                {'hostname': hostname},
+                {'timestamp': {'$gt': time_from, '$lt': time_to}}
+            ]
+        }
+        return list(collection.find(query, {'_id': False, 'timestamp': True, 'storage.ratio': True, 'storage.mounted_path': True}))
+
+    def searchMultipleTargetStorageLog(self, hostnames, mounted_path, time_from, time_to):
+        collection = self.db.DfLog
         query = {
             '$and': [
                 {
@@ -174,19 +204,21 @@ class MongoDbDocument(BaseDocument):
                         list(map(lambda x: {'hostname': x}, hostnames))
                     ]
                 },
+                {'storage.mounted_path': mounted_path},
                 {'timestamp': {'$gt': time_from, '$lt': time_to}}
             ]
         }
-        return list(collection.find(query, {'_id': False, 'timestamp': True, 'hostname': True, 'ratio': True}))
+        return list(collection.find(query, {'_id': False, 'timestamp': True, 'hostname': True, 'storage.ratio': True}))
 
-    def latestStorageLog(self, hostname, device_name):
-        collection = self.db.StorageLog
+    def latestTargetStorageLog(self, hostname, mounted_path):
+        collection = self.db.DfLog
         query = {
             '$and': [
-                {'hostname': hostname}
+                {'hostname': hostname},
+                {'storage.mounted_path': mounted_path}
             ]
         }
-        return list(collection.find(query, {'_id': False, 'timestamp': True, 'ratio': True}).sort('timestamp', -1).limit(1))
+        return list(collection.find(query, {'_id': False, 'timestamp': True, 'storage.ratio': True}).sort('timestamp', -1).limit(1))
 
     def searchIoLog(self, hostname, time_from, time_to):
         collection = self.db.VmstatLog
