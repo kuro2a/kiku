@@ -9,6 +9,7 @@ var app = function() {
 
     card = new KikuCard('card_content_1', 'NEWS', {});
     append(main_grid, card.createComponent(CARD_SIZE.LL));
+    card.setItemizedTextContents(`/api/v1/kiku/news/latest`, {'unit': '', 'label': false, 'str_mode': true, 'align':TEXT_ALIGN.LEFT});
 
     card = new KikuCard('card_content_2', 'USERS', {});
     append(main_grid, card.createComponent(CARD_SIZE.S));
@@ -60,7 +61,7 @@ var app = function() {
             }
         }
     }, 60 * 1000);
-    setTimeout(function() { location.reload() }, 20 * 60 * 1000);
+    setTimeout(function() { location.reload() }, 5 * 60 * 1000);
 
     return main_grid;
 }

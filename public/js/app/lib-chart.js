@@ -21,6 +21,11 @@ const HEADING_SIZE = {
     XLARGE: 4,
     XXLARGE: 5
 };
+const TEXT_ALIGN = {
+    LEFT: 1,
+    CENTER: 2,
+    RIGHT: 3
+};
 
 /**
  * Return card size class string for UIKit.
@@ -52,7 +57,7 @@ function getCardClass(size) {
 function getTable(header, data) {
     let table, thead, tbody, tRow, tData;
     table = document.createElement("table");
-    table.classList.add("uk-table", "uk-table-striped", "uk-small", "uk-table-divider", "uk-table-hover", "uk-table-middle");
+    table.classList.add("uk-table", "uk-table-striped", "uk-small", "uk-table-divider", "uk-table-hover", "uk-table-middle", "uk-table-small");
     thead = document.createElement("thead");
     tbody = document.createElement("tbody");
 
@@ -84,9 +89,10 @@ function getTable(header, data) {
  * 
  * @param {Array} header A String list.
  * @param {object} data A JSON object list. 
+ * @param {object} option Method options.
  */
 function getSimpleTexts(header, data, option) {
-    let top, tLabel, tValue, unit = '', labelFlag, tLabelClass, tValueClass;
+    let top, tLabel, tValue, unit = '', labelFlag, tLabelClass, tValueClass, tTextAlign, strFlag;
     top = document.createElement("div");
 
     if(option != undefined && option['unit'] != undefined){
@@ -121,22 +127,66 @@ function getSimpleTexts(header, data, option) {
                 break;
         }
     }
+    tTextAlign = 'uk-text-center';
+    if(option != undefined && option['align'] != undefined){
+        switch (option['align']) {
+            case TEXT_ALIGN.LEFT:
+                tTextAlign = 'uk-text-left';
+                break;
+            case TEXT_ALIGN.CENTER:
+                tTextAlign = 'uk-text-center';
+                break;
+            case TEXT_ALIGN.RIGHT:
+                tTextAlign = 'uk-text-right';
+                break;
+            default:
+                break;
+        }
+    }
+    strFlag = false;
+    if(option != undefined && option['str_mode'] != undefined){
+        if(option['str_mode'] == true){
+            strFlag = true;
+        }
+    }
 
     for(let i of header){
         if (labelFlag) {
             tLabel = document.createElement("div");
-            tLabel.classList.add(tLabelClass, "uk-text-center");
+            tLabel.classList.add(tLabelClass, tTextAlign);
             tLabel.innerText = `${i} ${unit}`;
             top.appendChild(tLabel);
         }
         tValue = document.createElement("div");
-        tValue.classList.add(tValueClass, "uk-text-bold", "uk-text-center");
-        tValue.innerText = Number(data[0][i]).toLocaleString();
+        tValue.classList.add(tValueClass, "uk-text-bold", tTextAlign);
+        tValue.innerText = strFlag ? data[0][i] : Number(data[0][i]).toLocaleString();
         top.appendChild(tValue);
     }
 
     return top;
 }
+
+
+/**
+ * Create itemized text DOM. It's using classname for UIKit CSS.
+ * 
+ * @param {object} data A JSON object list. 
+ * @param {object} option Method options.
+ */
+function getItemizedTexts(data, option) {
+    let top, tString;
+    top = document.createElement("div");
+
+    for(let i of data){
+        tString = document.createElement("div");
+        tString.classList.add("uk-text-large", "uk-text-bold", "uk-text-left");
+        tString.innerText = `# [${i["title"]}] ${i["message"]}`;
+        top.appendChild(tString);
+    }
+
+    return top;
+}
+
 
 /**
  * Bind C3.js line chart to DOM in card body.
@@ -480,6 +530,27 @@ KikuCard.prototype.setSimpleTextContents = function(url, option) {
                 header = response['data']['data']['key'];
                 self.clearContents();
                 self.add(getSimpleTexts(header, data, option));
+            }
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+        .then(function() {
+            // always executed
+        });
+}
+
+KikuCard.prototype.setItemizedTextContents = function(url, option) {
+    let id = `#${this.contents.id}`,
+        self = this;
+
+    axios.get(url)
+        .then(function(response) {
+            meta = response['data']['meta'];
+            if (meta['status'] == 'OK') {
+                data = response['data']['data']['data'];
+                self.clearContents();
+                self.add(getItemizedTexts(data, option));
             }
         })
         .catch(function(error) {

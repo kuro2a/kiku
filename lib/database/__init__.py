@@ -11,3 +11,4 @@ from lib.database.Application import *
 from lib.database.Role import *
 from lib.database.ExtraDevice import *
 from lib.database.NetworkDevice import *
+from lib.database.News import *
