@@ -10,7 +10,7 @@
             "password": "admin"
         },
         "session": {
-            "type": "local",
+            "engine": "local://localhost",
             "timeout": 7200
         },
         "database": {
