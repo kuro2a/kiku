@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from lib.resource.template import SystemResource, OsResource, MiddlewareResource, LogResource, DescriptionResource, UserManagementSearchResource, UserManagementAddResource, UserManagementDeleteResource, ServerManagementSearchResource, ServerManagementAddResource, ServerManagementDeleteResource, BetaDummyResource
+from lib.resource.template import LogResource, DescriptionResource, UserManagementSearchResource, UserManagementAddResource, UserManagementDeleteResource, ServerManagementSearchResource, ServerManagementAddResource, ServerManagementDeleteResource, BetaDummyResource
 from lib.resource.static import PrototypeResource
 from lib.const import Version
 
@@ -11,9 +11,8 @@ class PageRoute(object):
         routes = []
         # Write your page resources here.
         routes.append(['/prototype', PrototypeResource()])
-        routes.append(['/system', BetaDummyResource()])
-        routes.append(['/os', BetaDummyResource()])
-        routes.append(['/middleware', BetaDummyResource()])
+        routes.append(['/infrastructure', BetaDummyResource()])
+        routes.append(['/service', BetaDummyResource()])
         routes.append(['/log/{hostname}', LogResource()])
         routes.append(['/description/{hostname}', DescriptionResource()])
         routes.append(['/manage/user', UserManagementSearchResource()])

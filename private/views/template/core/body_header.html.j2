@@ -11,6 +11,18 @@
         </div>
     </div>
 
+    <!-- Configure modal. -->
+    <div id="modal_config" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <h2 class="uk-modal-title">USER CONFIGURE</h2>
+            <p>Now developing.</p>
+            <p class="uk-text-center">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            </p>
+        </div>
+    </div>
+
     <header>
         <nav class="uk-navbar-container" uk-navbar>
             <div class="uk-navbar-left">
@@ -21,7 +33,7 @@
             </div>
             <div class="uk-navbar-right">
                 <ul class="uk-navbar-nav">
-                    <li class="uk-parent"><a href="#"><span uk-icon="settings"></span></a></li>
+                    <li class="uk-parent"><a href="#" uk-toggle="target: #modal_config"><span uk-icon="settings"></span></a></li>
                 </ul>
                 <div class="uk-navbar-item">
                     <button class="uk-button uk-button-secondary" uk-toggle="target: #modal_logout">LOGOUT</button>
@@ -37,9 +49,7 @@
                                 uk-icon="thumbnails"></span>DASHBOARD</a>
                         <div class="uk-accordion-content">
                             <ul class="uk-list uk-list-divider">
-                                <li><a href="/system">System</a></li>
-                                <li><a href="/os">OS</a></li>
-                                <li><a href="/middleware">Middleware</a></li>
+                                <li><a href="/infrastructure">Infrastructure</a></li>
                                 <li><a href="/service">Service</a></li>
                                 <li><a href="/prototype">Prototype Page</a></li>
                             </ul>

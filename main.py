@@ -53,20 +53,26 @@ def create_service():
     global system_config, system_logger, access_logger, session_service, document
     # Init configure.
     system_config = dict(SystemUtility.get_config())  # Avoid pylint error.
+
     # Init logger.
     system_logger = SystemUtility.get_system_log(
         system_config[ConfigKey.CONF_KEY_SYSTEM])
     access_logger = SystemUtility.get_access_log(
         system_config[ConfigKey.CONF_KEY_SYSTEM])
+
     # Init session service.
     session_service = SessionUtility.get_session_service(
         system_config[ConfigKey.CONF_KEY_SYSTEM])
+
     # Init database.
     Base.metadata.create_all(bind=engine)
+
     # Init document.
     document = DocumentUtility.get_document(
         system_config[ConfigKey.CONF_KEY_SYSTEM])
     system_logger.info(system_config)
+
+    # Init application.
     app = falcon.API(middleware=[CommonMiddleware()])
     app.req_options.auto_parse_form_urlencoded = True
     app.add_static_route('/' + Const.PUBLIC_DIR, '/'.join(
@@ -79,9 +85,13 @@ def create_service():
 
 def main():
     global system_config, system_logger
-    app = create_service()
+
+    # Add signal handler.
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
+
+    # Start application server.
+    app = create_service()
     httpd = make_server(system_config[ConfigKey.CONF_KEY_SYSTEM][ConfigKey.CONF_KEY_SYSTEM_SERVER][ConfigKey.CONF_KEY_SYSTEM_SERVER_HOST],
                         system_config[ConfigKey.CONF_KEY_SYSTEM][ConfigKey.CONF_KEY_SYSTEM_SERVER][
                             ConfigKey.CONF_KEY_SYSTEM_SERVER_PORT], app,

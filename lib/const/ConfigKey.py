@@ -16,6 +16,7 @@ class ConfigKey(object):
     CONF_KEY_SYSTEM_SESSION_ENGINE = 'engine'
     CONF_KEY_SYSTEM_DATABASE = 'database'
     CONF_KEY_SYSTEM_DATABASE_ENGINE = 'engine'
+    CONF_KEY_SYSTEM_DATABASE_POOL_SIZE = 'pool_size'
     CONF_KEY_SYSTEM_DOCUMENT = 'document'
     CONF_KEY_SYSTEM_DOCUMENT_ENGINE = 'engine'
     CONF_KEY_SYSTEM_COOKIE = 'cookie'

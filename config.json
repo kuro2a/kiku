@@ -17,7 +17,8 @@
             "engine": "postgresql://kiku:K1kuPassWd@localhost/kiku"
         },
         "document": {
-            "engine": "mongodb://localhost:27017"
+            "engine": "mongodb://localhost:27017",
+            "pool_size": 10
         },
         "cookie": {
             "max_age": 7200
